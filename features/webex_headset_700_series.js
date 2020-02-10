@@ -3,7 +3,7 @@
 //
 module.exports = function (controller) {
 
-    controller.hears([/^webex$/], 'direct_message,direct_mention', function (bot, message) {
+    controller.hears([/^headset 700$/], 'direct_message,direct_mention', function (bot, message) {
 
         bot.startConversation(message, function (err, convo) {
 

@@ -3,24 +3,16 @@
 //
 module.exports = function (controller) {
 
-    controller.hears( 'help', 'message,direct_message', async ( bot, message ) => {
-
-        let markDown = '**Available commands:**  \n';
-
-        controller.commandHelp.sort( ( a,b ) => {
-
-            return ( ( a.command < b.command ) ? -1 : ( ( a.command > b.command ) ? 1 : 0 ));
-        });
-
-        controller.commandHelp.forEach( element => {
-            
-            markDown += `**${ controller.checkAddMention( message.roomType, element.command ) }**: ${ element.text }  \n`
-        });
-
-        await bot.reply( message, { markdown: markDown } );
-
-        // text += "\n- " + bot.appendMention(message, "storage") + ": store picked color as a user preference";
+    controller.hears([/^help$/], 'direct_message,direct_mention', function (bot, message) {
+        var text = "Here are my skills:";
+        text += "\n- " + bot.appendMention(message, "desk") + ": find the correct sku of the Webex Desk Series";
+        text += "\n- " + bot.appendMention(message, "board") + ": find the correct sku of the Webex Board Series";
+        text += "\n- " + bot.appendMention(message, "kit") + ": find the correct sku of the Webex Room Kit Series";
+        text += "\n- " + bot.appendMention(message, "room") + ": find the correct sku of the Webex Room Series";
+        text += "\n\nI also understand:";
+        text += "\n- " + bot.appendMention(message, "about") + ": shows metadata about myself";
+        text += "\n- " + bot.appendMention(message, "help") + ": spreads the word about my skills";
+        text += "\n- " + bot.appendMention(message, "show [skill]") + ": display the code of the specified skill";
+        bot.reply(message, text);
     });
-
-    controller.commandHelp.push( { command: 'help', text: 'Show available commands/descriptions' } );
 }
